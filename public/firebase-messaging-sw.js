@@ -8,14 +8,23 @@ importScripts('https://www.gstatic.com/firebasejs/7.14.2/firebase-messaging.js')
 // your app's Firebase config object.
 // https://firebase.google.com/docs/web/setup#config-object
 
-firebase.initializeApp({
-...
-})
+const config = {
+  apiKey: "",
+  authDomain: "",
+  databaseURL: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: "",
+  measurementId: "G-M1Z7D69KKQ"
+}
+
+firebase.initializeApp(config)
+
+const messaging = firebase.messaging()
 
 if ('serviceWorker' in navigator) {
-  console.log('oe', process)
   window.addEventListener('load', async () => {
-
 
     const regisSW = await navigator
       .serviceWorker
@@ -25,22 +34,29 @@ if ('serviceWorker' in navigator) {
 
     // Retrieve an instance of Firebase Messaging so that it can handle background
     // messages.
-    const messaging = firebase.messaging()
 
-    regisSW.then(function (registration) {
+    await regisSW.then(function (registration) {
       firebase.messaging().useServiceWorker(registration)
       console.log('Registration successful, scope is:', registration.scope);
     }).catch(function (err) {
       console.log('Service worker registration failed, error:', err);
     })
 
+    // self.addEventListener('push', function (event) {
+    //   console.log('sw', event)
+    //   const push = event.data.json();
+    //   const title = push.data.title;
+    //   const options = JSON.parse(push.data.options);
+    //   event.waitUntil(regisSW.showNotification(title, options));
+    // });
+
   })
 
-  // self.addEventListener('push', function(event) {
-  //   console.log('sw', event)
-  //   const push = event.data.json();
-  //   const title = push.data.title;
-  //   const options = JSON.parse(push.data.options);
-  //   event.waitUntil(regisSW.showNotification(title, options));
-  // });
+  // messaging.setBackgroundMessageHandler(function(payload) {
+  //   const title = 'hello!'
+  //   const options = {
+  //     body: payload.data.status
+  //   }
+  //   return self
+  // })
 }

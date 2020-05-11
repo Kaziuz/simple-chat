@@ -102,14 +102,17 @@ class Chat extends Component {
   }
 
   showMessage = () => {
-    // messaging.onMessage(payload => {
-    //   //payload && this.setState({ suscribe: payload.data })
-    //   console.log('show notification')
-    // })
+    // el fcm muestra el mensaje cuando el usuario tiene 
+    // la web app abierta en primer plano o en segundo plano
+    messaging.onMessage(payload => {
+      //payload && this.setState({ suscribe: payload.data })
+      console.log('show notification', payload)
+    })
   }
 
   getTokenUser = async () => {
-    messaging.requestPermission().then(() => {
+    messaging.requestPermission()
+    .then(() => {
       return messaging.getToken()
     }).then(token => {
       this.setState({ token })
@@ -144,7 +147,7 @@ class Chat extends Component {
         .catch(err => console.log("Error adding document: ", err))
       this.setState({ content: '' });
       chatArea.scrollBy(0, chatArea.scrollHeight);
-      //this.showMessage()
+      this.showMessage()
     } catch (error) {
       this.setState({ writeError: error.message });
     }
@@ -157,6 +160,7 @@ class Chat extends Component {
   }
 
   render() {
+    console.log('token', this.state.token)
     return (
       <div>
         <Header />
@@ -207,6 +211,7 @@ class Chat extends Component {
             <strong className="text-info">{this.state.user.email}</strong>
           </span>
         </form>
+        <p className="px-5 mt-4"> token client: <b>{this.state.token}</b></p>
       </div>
     );
   }
