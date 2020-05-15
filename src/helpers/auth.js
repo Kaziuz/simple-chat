@@ -39,11 +39,20 @@ export function signInWithGoogle() {
   return auth().signInWithPopup(provider);
 }
 
-// estrategias para loguearse con github
-// https://firebase.google.com/docs/reference/android/com/google/firebase/auth/GithubAuthProvider
-export function signInWithGitHub() {
-  // const provider = new auth.GithubAuthProvider();
-  // return auth().signInWithPopup(provider);
+// estrategias para loguearse con acebook
+// https://firebase.google.com/docs/auth/web/facebook-login
+export function signInWithFacebook() {
+  const provider = new auth.FacebookAuthProvider();
+  return auth().signInWithPopup(provider)
+    .then(result => {
+      // this gives you a facebook access token.
+      // this token use for access the facebook api
+      // const token = result.credential.accessToken
+      // const user = result.user
+    })
+    .catch(err => {
+      // const errorCode = error.code
+    });
 }
 
 export function logout() {
