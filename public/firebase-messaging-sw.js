@@ -9,14 +9,7 @@ importScripts('https://www.gstatic.com/firebasejs/7.14.2/firebase-messaging.js')
 // https://firebase.google.com/docs/web/setup#config-object
 
 const config = {
-  apiKey: "",
-  authDomain: "",
-  databaseURL: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: "",
-  measurementId: "G-M1Z7D69KKQ"
+  ...
 }
 
 firebase.initializeApp(config)
