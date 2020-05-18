@@ -47,8 +47,11 @@ export function signInWithFacebook() {
     .then(result => {
       // this gives you a facebook access token.
       // this token use for access the facebook api
-      // const token = result.credential.accessToken
-      // const user = result.user
+      const token = result.credential.accessToken
+      const user = result.user
+
+      console.log('token user facebook', token)
+      console.log('user', user)
     })
     .catch(err => {
       // const errorCode = error.code
