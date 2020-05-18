@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import {
   signin,
   signInWithGoogle,
-  signInWithFacebook
+  signInWithFacebook,
+  signInWithTwitter
 } from "../helpers/auth";
 
 export default class Login extends Component {
@@ -18,6 +19,15 @@ export default class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.googleSignIn = this.googleSignIn.bind(this);
     this.facebookSignIn = this.facebookSignIn.bind(this);
+    this.twitterSignIn = this.twitterSignIn.bind(this);
+  }
+
+  async twitterSignIn() {
+    try {
+      await signInWithTwitter();
+    } catch (error) {
+      this.setState({ error: error.message });
+    }
   }
 
   handleChange(event) {
@@ -99,8 +109,11 @@ export default class Login extends Component {
           <button className="btn btn-danger mr-2" type="button" onClick={this.googleSignIn}>
             Sign in with Google
           </button>
-          <button className="btn btn-primary" type="button" onClick={this.facebookSignIn}>
+          <button className="btn btn-primary mr-2" type="button" onClick={this.facebookSignIn}>
             Sign in with Facebook
+          </button>
+          <button className="btn btn-primary mr-2" type="button" onClick={this.signInWithTwitter}>
+            Sign in with Twitter
           </button>
           <hr />
           <p>
@@ -112,3 +125,4 @@ export default class Login extends Component {
     );
   }
 }
+

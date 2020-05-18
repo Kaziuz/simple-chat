@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { signup, signInWithGoogle, signInWithFacebook } from "../helpers/auth"
+import { 
+  signup, 
+  signInWithGoogle, 
+  signInWithFacebook,
+  signInWithTwitter
+} from "../helpers/auth"
 
 export default class SignUp extends Component {
   constructor() {
@@ -16,6 +21,15 @@ export default class SignUp extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.googleSignIn = this.googleSignIn.bind(this)
     this.facebookSignIn = this.facebookSignIn.bind(this)
+    this.twitterSignIn = this.twitterSignIn.bind(this)
+  }
+
+  async twitterSignIn() {
+    try {
+      await signInWithTwitter();
+    } catch (error) {
+      this.setState({ error: error.message });
+    }
   }
 
   handleChange(event) {
@@ -94,8 +108,11 @@ export default class SignUp extends Component {
           >
             Sign up with Google
           </button>
-          <button className="btn btn-primary" type="button" onClick={this.githubSignIn}>
+          <button className="btn btn-primary mr-2" type="button" onClick={this.githubSignIn}>
             Sign in with Facebook
+          </button>
+          <button className="btn btn-primary mr-2" type="button" onClick={this.signInWithTwitter}>
+            Sign in with Twitter
           </button>
           <hr></hr>
           <p>Already have an account? <Link to="/login">Login</Link></p>

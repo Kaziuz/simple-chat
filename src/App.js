@@ -9,6 +9,7 @@ import Home from "./pages/Home"
 import Chat from "./pages/Chat"
 import Signup from "./pages/Signup"
 import Login from "./pages/Login"
+import Privacy from "./pages/Privacy"
 import { auth } from "./services/firebase"
 import './styles.css'
 
@@ -98,6 +99,12 @@ class App extends Component {
               path="/login"
               authenticated={this.state.authenticated}
               component={Login}
+            />
+
+            <PublicRoute
+              path="/politica"
+              authenticated={this.state.authenticated}
+              component={Privacy}
             />
 
           </Switch>
