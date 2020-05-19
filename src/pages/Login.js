@@ -5,7 +5,7 @@ import {
   signInWithGoogle,
   signInWithFacebook,
   signInWithTwitter
-} from "../helpers/auth";
+} from "../helpers/auth"
 
 export default class Login extends Component {
   constructor() {
@@ -20,6 +20,30 @@ export default class Login extends Component {
     this.googleSignIn = this.googleSignIn.bind(this);
     this.facebookSignIn = this.facebookSignIn.bind(this);
     this.twitterSignIn = this.twitterSignIn.bind(this);
+    this.instagramSignIn = this.instagramSignIn.bind(this);
+  }
+
+  async instagramSignIn() {
+    // window.open('https://chat-app-bkend.herokuapp.com/auth/instagram', "_self")
+    await fetch('https://chat-app-bkend.herokuapp.com/auth/instagram', {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "Application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true
+      }
+    })
+      .then(res => {
+        if (res.status === 200) return res.json()
+        throw new Error("failed to auth user")
+      })
+      .then(resJson => {
+        console.log('auth user succesfull', resJson.user)
+      })
+      .catch(err => {
+        console.log('failed auth', err )
+      })
   }
 
   async twitterSignIn() {
@@ -112,8 +136,19 @@ export default class Login extends Component {
           <button className="btn btn-primary mr-2" type="button" onClick={this.facebookSignIn}>
             Sign in with Facebook
           </button>
-          <button className="btn btn-primary mr-2" type="button" onClick={this.signInWithTwitter}>
+          <button className="btn mr-2"
+            style={{ background: 'rgba(29,161,242,1.00)', color: 'white' }}
+            type="button"
+            onClick={this.twitterSignIn}
+          >
             Sign in with Twitter
+          </button>
+          <button className="btn mr-2"
+            style={{ background: 'rgb(225,45,108)', color: 'white' }}
+            type="button"
+            onClick={this.instagramSignIn}
+          >
+            Sign in with Instagram
           </button>
           <hr />
           <p>

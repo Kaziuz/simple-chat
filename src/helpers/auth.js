@@ -59,19 +59,21 @@ export function signInWithFacebook() {
 }
 
 export function signInWithTwitter() {
+  console.log('ejecuto with twitter')
   const provider = new auth.TwitterAuthProvider();
   return auth().signInWithPopup(provider)
     .then(result => {
       // this gives you a facebook access token.
       // this token use for access the facebook api
-      //const token = result.credential.accessToken
-      //const user = result.user
+      const token = result.credential.accessToken
+      const user = result.user
 
-      // console.log('token user twitter', token)
-      // console.log('user', user)
+      console.log('token user twitter', token)
+      console.log('user', user)
     })
-    .catch(err => {
-      // const errorCode = error.code
+    .catch(error => {
+      const errorCode = error.code
+      console.log('error auth', errorCode)
     });
 }
 

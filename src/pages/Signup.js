@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { 
-  signup, 
-  signInWithGoogle, 
+import {
+  signup,
+  signInWithGoogle,
   signInWithFacebook,
   signInWithTwitter
 } from "../helpers/auth"
+import axios from 'axios'
 
 export default class SignUp extends Component {
   constructor() {
@@ -22,6 +23,11 @@ export default class SignUp extends Component {
     this.googleSignIn = this.googleSignIn.bind(this)
     this.facebookSignIn = this.facebookSignIn.bind(this)
     this.twitterSignIn = this.twitterSignIn.bind(this)
+    this.instagramSignIn = this.instagramSignIn.bind(this)
+  }
+
+  async instagramSignIn() {
+    await fetch('https://chat-app-bkend.herokuapp.com/auth/instagram')
   }
 
   async twitterSignIn() {
@@ -111,8 +117,19 @@ export default class SignUp extends Component {
           <button className="btn btn-primary mr-2" type="button" onClick={this.githubSignIn}>
             Sign in with Facebook
           </button>
-          <button className="btn btn-primary mr-2" type="button" onClick={this.signInWithTwitter}>
+          <button className="btn mr-2"
+            style={{ background: 'rgba(29,161,242,1.00)', color: 'white' }}
+            type="button"
+            onClick={this.twitterSignIn}
+          >
             Sign in with Twitter
+          </button>
+          <button className="btn mr-2"
+            style={{ background: 'rgb(225,45,108)', color: 'white' }}
+            type="button"
+            onClick={this.instagramSignIn}
+          >
+            Sign in with Instagram
           </button>
           <hr></hr>
           <p>Already have an account? <Link to="/login">Login</Link></p>
